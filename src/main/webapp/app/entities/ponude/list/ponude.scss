@@ -1,0 +1,37 @@
+table {
+  border-collapse: collapse;
+}
+th,
+td {
+  padding: 1rem;
+}
+thead,
+tfoot {
+  background: #eee;
+}
+thead {
+  position: sticky;
+  top: 0;
+  border-bottom: 2px solid #ccc;
+}
+tfoot {
+  position: sticky;
+  bottom: 0;
+  border-top: 2px solid #ccc;
+}
+
+body {
+  font: 110%/1.4 system-ui;
+  margin: 0;
+  padding: 10rem 2rem 50rem;
+}
+thead,
+tfoot {
+  position: sticky;
+}
+thead {
+  inset-block-start: 0; /* "top" */
+}
+tfoot {
+  inset-block-end: 0; /* "bottom" */
+}
