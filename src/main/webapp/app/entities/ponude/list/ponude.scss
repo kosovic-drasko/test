@@ -1,37 +1,28 @@
-table {
-  border-collapse: collapse;
+.table-responsive table-entities {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  margin: auto;
+  overflow: auto;
+  height: 400px;
 }
-th,
-td {
-  padding: 1rem;
-}
-thead,
-tfoot {
-  background: #eee;
-}
-thead {
-  position: sticky;
-  top: 0;
-  border-bottom: 2px solid #ccc;
-}
-tfoot {
-  position: sticky;
-  bottom: 0;
-  border-top: 2px solid #ccc;
+.table-scroll table {
+  width: 100%;
 }
 
-body {
-  font: 110%/1.4 system-ui;
-  margin: 0;
-  padding: 10rem 2rem 50rem;
-}
-thead,
-tfoot {
+.table-scroll thead th {
+  color: gray;
+  position: -webkit-sticky;
   position: sticky;
+  top: 0;
 }
-thead {
-  inset-block-start: 0; /* "top" */
-}
-tfoot {
-  inset-block-end: 0; /* "bottom" */
+.table-scroll tfoot,
+.table-scroll tfoot th,
+.table-scroll tfoot td {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+  background: wheat;
+  color: white;
+  z-index: 1;
 }
