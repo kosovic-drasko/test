@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
-import { combineLatest, filter, Observable, of, pipe, switchMap, tap } from 'rxjs';
+import { combineLatest, distinct, filter, Observable, of, pipe, switchMap, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IStudent } from '../student.model';
@@ -11,7 +11,7 @@ import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/conf
 import { EntityArrayResponseType, StudentService } from '../service/student.service';
 import { StudentDeleteDialogComponent } from '../delete/student-delete-dialog.component';
 import { FilterOptions, IFilterOptions, IFilterOption } from 'app/shared/filter/filter.model';
-import { map } from 'rxjs/operators';
+import { unique } from 'webpack-merge';
 
 @Component({
   selector: 'jhi-student',
@@ -20,7 +20,8 @@ import { map } from 'rxjs/operators';
 export class StudentComponent implements OnInit {
   students?: IStudent[];
   isLoading = false;
-
+  student?: (string | null | undefined)[];
+  ukupnoGodina?: number;
   predicate = 'id';
   ascending = true;
   filters: IFilterOptions = new FilterOptions();
@@ -95,7 +96,13 @@ export class StudentComponent implements OnInit {
   protected onResponseSuccess(response: EntityArrayResponseType): void {
     this.fillComponentAttributesFromResponseHeader(response.headers);
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
-    this.students = dataFromBody;
+    this.students = dataFromBody.filter(val => val.name == 'ana');
+    // this.students = dataFromBody;
+    this.ukupnoGodina = this.students?.reduce((acc, student) => acc + student.age!, 0);
+
+    console.log('Jedinstveno ime je .....', this.student);
+    console.log('Ukupno godina.....', this.ukupnoGodina);
+    console.log(this.students);
   }
 
   protected fillComponentAttributesFromResponseBody(data: IStudent[] | null): IStudent[] {
@@ -150,21 +157,4 @@ export class StudentComponent implements OnInit {
       return [predicate + ',' + ascendingQueryParam];
     }
   }
-  // rx(){
-  //   //
-  //   // of(1,2,3,4,5,6,7,8,9,10)
-  // //   this.loadFromBackendWithRouteInformations()
-  // //   // .pipe(
-  // //   //   filter(res => {
-  // //   //     return res.body. >3;
-  // //   //   }),
-  // // .subscribe({
-  // //     next: (res: EntityArrayResponseType) => {
-  // //       pipe((filter=>x==))
-  // //       this.onResponseSuccess(res);
-  // //     },
-  //   });
-
-  //     // .subscribe(val => console.log(val));
-  // }
 }
